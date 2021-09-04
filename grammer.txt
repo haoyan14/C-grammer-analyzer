@@ -1,0 +1,35 @@
+program -> headers programs
+header -> # include < id > 
+headers -> header headers | e
+programs -> program1 programs | e
+program1 -> type id para0
+para0 -> idassignlist2 ; | ( paralist ) para1
+para1 -> ; | { sentences }
+sentences -> sentences1
+sentences1 ->  sentence  sentences1 | e
+sentence -> branch | assignment ; | loop | jump ; | statement ;
+statement -> type idlist 
+idlist -> idlist1 idlist3
+idlist3 -> , idlist | e
+idlist1 -> id idassignlist2 
+idassignlist2 -> = expression | e
+type -> int | char | bool | double | float | short | long | 
+paralist  -> type  id para | e
+para -> , type id para | e
+assignment -> id assignment1 | statement
+assignment1 -> ++ | -- | = expression
+expression -> id expression1 | opexpression
+expression1 -> ( paralist ) | opexpression1
+opexpression -> cons opexpression1 | ( opnum opexpression1 ) | id expression1
+opexpression1 -> e | + opexpression | - opexpression | * opexpression | / opexpression | & opexpression | > opexpression | < opexpression | <= opexpression | >= opexpression | == opexpression | != opexpression
+opexpression1 -> | opexpression
+opnum -> id | cons
+branch -> if ( cmpexpression ) { sentences } branch1
+branch1 -> else branch2  | e
+branch2 -> { sentences } | sentence
+cmpexpression -> id expression1 | cons 
+cmpope -> > | < | >= | <= | == | != 
+loop -> forloop | whileloop
+forloop -> for ( assignment ; cmpexpression ; opexpression1 ) { sentences }
+whileloop -> while ( cmpexpression ) { sentences  }   
+jump -> break | return cmpexpression | continue 
